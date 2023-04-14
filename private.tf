@@ -19,6 +19,7 @@ resource "aws_subnet" "private" {
   cidr_block        = cidrsubnet(var.cidr_block, ceil(log(var.max_subnets, 2)), each.value)
 
   tags = merge(
+    var.private_subnet_tags,
     module.private_label.tags,
     {
       "Name" = "${module.private_label.id}${module.this.delimiter}${each.key}"

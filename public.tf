@@ -26,6 +26,7 @@ resource "aws_subnet" "public" {
   ), each.value) : null
   map_public_ip_on_launch = var.map_public_ip_on_launch
   tags = merge(
+    var.public_subnet_tags,
     module.public_label.tags,
     {
       "Name" = "${module.public_label.id}${module.this.delimiter}${each.key}"

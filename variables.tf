@@ -138,3 +138,15 @@ variable "map_public_ip_on_launch" {
   description = "Flag to enable/disable the public ip asignment on the subnets"
   default     = false
 }
+
+variable "public_subnet_tags" {
+  type        = map(string)
+  description = "Map of tags to add to the public subnets"
+  default     = {}
+}
+
+variable "private_subnet_tags" {
+  type        = map(string)
+  description = "Map of tags to add to the private subnets"
+  default     = {}
+}
