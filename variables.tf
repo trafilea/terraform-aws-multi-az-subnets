@@ -121,6 +121,12 @@ variable "nat_gateway_enabled" {
   default     = "true"
 }
 
+variable "nat_gateway_azs" {
+  type        = list(string)
+  description = "Availability zones in which to create a NAT gateway. Empty creates one NAT gateway in every public availability zone. Each value must also be in availability_zones."
+  default     = []
+}
+
 variable "ipv6_enabled" {
   description = "Flag to enable/disable IPv6 creation in public subnets"
   type        = bool
