@@ -1,6 +1,10 @@
 locals {
-  public_azs              = local.public_enabled ? { for idx, az in var.availability_zones : az => idx } : {}
-  public_nat_gateway_azs  = local.public_enabled && var.nat_gateway_enabled ? local.public_azs : {}
+  public_azs = local.public_enabled ? { for idx, az in var.availability_zones : az => idx } : {}
+  public_nat_gateway_azs = local.public_enabled && var.nat_gateway_enabled ? (
+    length(var.nat_gateway_azs) == 0 ? local.public_azs : {
+      for az, idx in local.public_azs : az => idx if contains(var.nat_gateway_azs, az)
+    }
+  ) : {}
   public_ipv6_enabled     = local.public_enabled && var.ipv6_enabled
   public_ipv6_azs         = local.public_ipv6_enabled ? local.public_azs : {}
   public_ipv6_target_mask = 64
